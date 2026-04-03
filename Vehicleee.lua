@@ -597,7 +597,7 @@ end)
 local tgFa = Tabs.Main:CreateToggle("TGFARM", {Title = "Toggle Auto Race", Default = false })
 
 tgFa:OnChanged(function(bool)
-    stored["Main"]["Auto Race"] = bool
+    TRace = bool
 end)
 
 local highlight
@@ -623,7 +623,7 @@ tgfm:OnChanged(function(bool)
         end
     end
 
-    stored["Main"]["Auto Farm"] = bool
+    Farm = bool
 end)
 
 Tabs.Main:CreateButton{
@@ -1852,7 +1852,7 @@ InterfaceManager:SetLibrary(Library)
 SaveManager:BuildConfigSection(Tabs.Saves)
 
 Library:Notify{
-    Title = "Info [System]",
+    Title = "Info [Script]",
     Content = "The script has been loaded.",
     Duration = 8
 }
