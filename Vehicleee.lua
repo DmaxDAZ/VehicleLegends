@@ -1,21 +1,19 @@
-local stored = {
-    ["Main"] = {
-        ["Auto Race"] = false,
-        ["Auto Farm"] = false
-    },
+pcall(function()
+    sethiddenproperty(game.Players.LocalPlayer, "MaximumSimulationRadius", math.huge)
+    sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.huge)
+end)
 
-    ["Events"] = {
-        ["Auto Trophy"] = false,
-        ["Auto Smash Snow"] = false,
-        ["Auto Collect Eggs"] = false
-    }
-}
 local RaceMode = "Remote"
 local Race = "None"
 local FarmSpeed = 250
 local selectedPlayer = nil
 local lowGraphicsEnabled = false
 local job_id = nil
+local TRace = false
+local Farm = false
+local Trophy = false
+local Snow = false
+local Eggs = false
 
 local RunService = game:GetService("RunService")
 local player = game:GetService("Players").LocalPlayer
@@ -1037,7 +1035,7 @@ task.spawn(function()
 
         local gui = player.PlayerGui:WaitForChild("Races")
 
-        if not stored["Main"]["Auto Race"] then continue end
+        if not TRace then continue end
         if Racing then continue end
 
         local car = GetCar()
@@ -1644,7 +1642,7 @@ task.spawn(function()
     while true do
         task.wait(0.1)
 
-        if not stored["Events"]["Auto Smash Snow"] then
+        if not Snow then
             continue
         end
 
@@ -1732,7 +1730,7 @@ task.spawn(function()
     while true do
         task.wait(0.1)
 
-        if not stored["Events"]["Auto Trophy"] then
+        if not Trophy then
             continue
         end
 
@@ -1755,7 +1753,7 @@ task.spawn(function()
             local cup = trophy:FindFirstChild("Bronze") or trophy:FindFirstChild("Silver") or trophy:FindFirstChild("Gold") or trophy:FindFirstChild("Primary")
             if not cup or not cup:IsA("BasePart") then continue end
 
-            while stored["Events"]["Auto Trophy"] do
+            while Trophy do
                 if not cup.Parent or not trophy.Parent then
                     break
                 end
@@ -1782,7 +1780,7 @@ task.spawn(function()
     while true do
         task.wait(0.1)
 
-        if not stored["Events"]["Auto Collect Eggs"] then
+        if not Eggs then
             continue
         end
 
@@ -1802,7 +1800,7 @@ task.spawn(function()
             local easteregg = egg:FindFirstChild("Egg") or egg:FindFirstChildOfClass("Part")
             if not easteregg or not easteregg:IsA("BasePart") then continue end
 
-            while stored["Events"]["Auto Collect Eggs"] do
+            while Eggs do task.wait()
                 if not easteregg.Parent or not egg.Parent then
                     break
                 end
@@ -1828,7 +1826,7 @@ end)
 task.spawn(function()
     while true do
         RunService.Heartbeat:Wait()
-        if stored["Main"]["Auto Farm"] then
+        if Farm then
         local car = GetCar()
         if car and car.PrimaryPart and car:FindFirstChild("VehicleSeat") then
             local seat = car:FindFirstChild("VehicleSeat")
@@ -1862,5 +1860,11 @@ Library:Notify{
 player.CharacterAdded:Connect(function(newChar)
     player.MaximumSimulationRadius = math.huge
     player.SimulationRadius = math.huge
+
+    pcall(function()
+        sethiddenproperty(player, "MaximumSimulationRadius", math.huge)
+        sethiddenproperty(player, "SimulationRadius", math.huge)
+    end)
+
 	task.wait(1)
 end)
