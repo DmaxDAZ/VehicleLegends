@@ -1852,7 +1852,7 @@ InterfaceManager:SetLibrary(Library)
 SaveManager:BuildConfigSection(Tabs.Saves)
 
 Library:Notify{
-    Title = "Info",
+    Title = "Info [System]",
     Content = "The script has been loaded.",
     Duration = 8
 }
